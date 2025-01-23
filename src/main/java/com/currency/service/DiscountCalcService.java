@@ -33,16 +33,18 @@ public class DiscountCalcService {
             throw new RuntimeException("Invalid target currency.");
         }
         double discountedAmount = 0;
-        if(request.getItemType().equalsIgnoreCase("Groceries")){
+        if(!request.getItemType().equalsIgnoreCase("Groceries")){
             if(request.getUserRole().equalsIgnoreCase("Employee")){
-                discountedAmount = request.getAmount() * (1 - (request.getDiscount() != null ? 30 / 100 : 0));
+                discountedAmount = request.getAmount() *  30 / 100 ;
             }else if(request.getUserRole().equalsIgnoreCase("Affiliate")){
-                discountedAmount = request.getAmount() * (1 - (request.getDiscount() != null ? 10 / 100 : 0));
-            }else if(request.getUserRole().equalsIgnoreCase("Customer") && Integer.valueOf(request.getCustomerExistsInSys())>2){
-                discountedAmount = request.getAmount() * (1 - (request.getDiscount() != null ? 5 / 100 : 0));
-            }else if(request.getToCurrency().equals("USD") && request.getAmount()>100){
+                discountedAmount = request.getAmount() *  10 / 100 ;
+            }else if(request.getUserRole().equalsIgnoreCase("Customer") && Integer.valueOf(request.getCustomerExistsInSys())>=2){
+                discountedAmount = request.getAmount() * 5 / 100;
+            }else if(request.getToCurrency().equals("USD") && request.getAmount()>=100){
 
-                discountedAmount= request.getAmount() * (1 - (request.getDiscount() != null ? 5 / 100 : 0));
+                discountedAmount= request.getAmount() *  5 / 100;
+                discountedAmount=request.getAmount()-discountedAmount;
+
             }
         }
 
