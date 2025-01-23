@@ -1,7 +1,10 @@
 # exchange
 exchange the currency and pay the bill code 
 EndPoint: http://localhost:8080/api/calculate
+
+
 Request:
+
 {
   "fromCurrency": "AED",
   "toCurrency": "INR",
@@ -12,7 +15,9 @@ Request:
   "userRole":"Customer"
 }
 
+
 Response:
+
 {
     "fromCurrency": "AED",
     "toCurrency": "INR",
