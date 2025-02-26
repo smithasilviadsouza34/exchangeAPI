@@ -1,0 +1,62 @@
+import java.util.*;
+import java.util.stream.*;
+
+class Employee {
+    int id;
+    String name;
+    double salary;
+    String gender;
+    String deptName;
+
+    public Employee(int id, String name, double salary, String gender, String deptName) {
+        this.id = id;
+        this.name = name;
+        this.salary = salary;
+        this.gender = gender;
+        this.deptName = deptName;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", salary=" + salary +
+                ", gender='" + gender + '\'' +
+                ", deptName='" + deptName + '\'' +
+                '}';
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Employee> employees = Arrays.asList(
+                new Employee(1, "John", 50000, "Male", "HR"),
+                new Employee(2, "Jane", 60000, "Female", "IT"),
+                new Employee(3, "Mike", 55000, "Male", "IT"),
+                new Employee(4, "Sarah", 70000, "Female", "HR"),
+                new Employee(5, "David", 75000, "Male", "IT")
+        );
+
+        // Group by department and find the employee with the highest salary in each department
+        Map<String, Optional<Employee>> highestSalaryByDept = employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::getDeptName,
+                        Collectors.maxBy(Comparator.comparingDouble(Employee::getSalary))
+                ));
+
+        // Print the result
+        highestSalaryByDept.forEach((dept, employee) -> 
+                employee.ifPresent(emp -> 
+                        System.out.println("Department: " + dept + ", Highest Salary Employee: " + emp))
+        );
+    }
+}
