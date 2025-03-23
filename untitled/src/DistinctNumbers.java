@@ -8,7 +8,7 @@ public class DistinctNumbers {
 
     public static List<Integer> getDistinctNumbers(List<Integer> numbers) {
         return numbers.stream().distinct().collect(Collectors.toList());
-       // return Arrays.asList(-1);
+
     }
 
     public static void main(String[] args) {
